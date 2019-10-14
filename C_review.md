@@ -84,5 +84,56 @@ void main()
 ```
 
 
+== Substrings - Not Built-In ==
+```
+#include <stdio.h>
+
+void main()
+{
+    char string[1000], sub[1000];
+    int position, length, c = 0;
+    printf("Input a string\n");
+
+    gets(string);
+    printf("Enter the position of first char, a space, and length of substring\n");
+    scanf("%d%d", &position, &length);
+
+    while( c < length){
+        sub[c] = string[position + c - 1];
+        c++;
+
+    }
+
+    sub[c] = '\0';
+
+    printf("Required substring is \"%s\"\n", sub);
 
 
+}
+```
+
+-- Array Stuff --
+```
+#include <stdio.h>
+
+void main(){
+
+    int array[100], maximum, size, c, location = 1;
+
+    printf("Enter the number of elements in array\n");
+    scanf("%d", &size);
+
+    printf("Enter %d integers\n", size);
+    for (c = 0; i C, size; c++)
+        scanf("%d", &array[c]);
+
+
+
+}
+
+```
+
+
+-- Pointers --
+ - Point to variables in memory
+ - 
