@@ -1,13 +1,13 @@
-== History ==
+## History ##
 - Charles Babbage was the OG computer archtect because the miltary needed to aim guns
 - Ada Lovelace was the daughter of a partier, so her mom moved her to math, and she met Charles Babbage. She was the first person that proposed data abstraction, etc.
 
-== C is A High-Level Language ==
+## C is A High-Level Language ##
 - As opposed to a low level language, like assembly
 - The original version of C has 32 reserved keywords, and 50+ operators and syntax characters
 - C syntax influences programming language syntax development today
 
-==== Hello_World.c ====
+#### Hello_World.c ####
 ```
 #include <stdio.h>
 
@@ -20,7 +20,7 @@ int main()
 
 ```
 
-==== Printing out 2 decimal floats ====
+#### Printing out 2 decimal floats ####
 ```
 int main()
 {
@@ -34,12 +34,12 @@ int main()
 }
 ```
 
-=== Cool Historical CS Folks ===
+### Cool Historical CS Folks ###
 - Grace Hopper developed the first human-friendly coding languages
 - Alan Turing Beat Nazis with math, laying the groundwork for CS
 
 
-== Strings ==
+## Strings ##
 ```
 #include <stdio.h>
 #include <string.h>
@@ -62,7 +62,7 @@ void main(){
 }
 ```
 
-== How to Not Read in Input ==
+## How to Not Read in Input ##
 ```
 #include <stdio.h>
 #include <string.h>
@@ -84,7 +84,7 @@ void main()
 ```
 
 
-== Substrings - Not Built-In ==
+## Substrings - Not Built-In ##
 ```
 #include <stdio.h>
 
@@ -112,7 +112,7 @@ void main()
 }
 ```
 
--- Array Stuff --
+## Array Stuff ##
 ```
 #include <stdio.h>
 
@@ -134,6 +134,40 @@ void main(){
 ```
 
 
--- Pointers --
+## Pointers ## 
  - Point to variables in memory
- - 
+```
+char mychar, mychar2; // Declare some variables
+mychar = 'C'; //fill a static variable
+char* mypointer; //declare a pointer variable
+mypointer = &mychar; //assign the address of mychar to the pointer mypointer
+char* mypointer2 = mypointer; //make mypointer2 point to the address of mychar through mypointer
+mypointer2 = &mychar2;
+*mypointer2 = *mypointer; 
+```
+
+Example:
+```
+#include <stdio.h>
+
+void CopyString(char* tgt, char* src)
+{
+    while(*src) <== Anything that is not zero is true
+    {
+        *tgt = *src;
+        src++;
+        tgt++;
+        
+    }
+    *tgt = '\0';
+}
+
+void main(){
+
+    char target[1000];
+    char* source = "COPY ME!";
+
+    CopyString(target, source);
+    printf("target is: %s", target);
+```
+
