@@ -20,13 +20,11 @@
 ## Important Definitions ##
 
 System Calls
-
     * A request for service that causes the normal operation of a process to be interrupted and control passed to the OS
     * Typically process is now blocked and is now unable to proceed until the call returns
     * read(), write(), etc.
 
 C Library Functions
-    
     * Faster, no permissions or blocking issues
     * sqrt(), printf()
 
@@ -34,17 +32,16 @@ C Library Functions
 ## Illusions of Simultaneous Execution ##
 
 Multiprogramming
-
-    * More than one process can be ready to execute
-    * System calls trigger "context switches", which let the next process run
-    * The process will not execute again until its system call returns
+* More than one process can be ready to execute
+* System calls trigger "context switches", which let the next process run
+* The process will not execute again until its system call returns
 
 Timesharing
-    * CPU time split between multiple processes
-    * This gives the illusion tha tmany processes are running at once
+* CPU time split between multiple processes
+* This gives the illusion tha tmany processes are running at once
 
-** Multiprogramming: there are times when a program may hand off control
-** Timesharing: CPU splits up time regardless of who needs it
+__Multiprogramming__: there are times when a program may hand off control
+__Timesharing__: CPU splits up time regardless of who needs it
 
 ## Multiprocessing ##
 
@@ -57,33 +54,28 @@ Timesharing
 
 * Concurrently running processes can share data and/or resources
 * What if multiple resources access the same resource at the same time?
-
     * This is a race condition
 
 Classic Example:
-    * Two ATM machines each withdraw $20 from the same account
+* Two ATM machines each withdraw $20 from the same account
+    * To update bank account balance:
+        * Read current balance into memory
+        * subtract $20
+        * write new balance back to account
 
-        * To update bank account balance:
-            * Read current balance into memory
-            * subtract $20
-            * write new balance back to account
-
-    * The issue is that each atm will read the previous balance and both will only return the same balance, so one of the $20 won't be recorded as withdrawn
+* The issue is that each atm will read the previous balance and both will only return the same balance, so one of the $20 won't be recorded as withdrawn
 
 ## Race conditions ##
 
 * Why are the hard to detect?
-    
     * May only show up once under strange conditions
     * Race hazard is a flaw in a system or process where the output exhibits unexpected critical dependence on the relative timing of events
 
 ## Provide Access Control ##
 
 * Concurrent update situation
-    
     * 2+ processes accessing resource concurrently
     * At least one process might write
-
 * __Must provide Access Control__
     * If one process is writing, no other should access (read OR write) the resource 
 
@@ -127,13 +119,13 @@ do{
 ## Deeper Definitions ##
 
 Kernal
-    * The central part of an Operating System
-    * Manages hardware (and drivers)
-    * Provides the Scheduler
-    * Not interacted with by users: system calls are requests to the kernel
+* The central part of an Operating System
+* Manages hardware (and drivers)
+* Provides the Scheduler
+* Not interacted with by users: system calls are requests to the kernel
 
 Scheduler
-    * Distributes prioritized and/or fair CPU time
+* Distributes prioritized and/or fair CPU time
 
 
 ## Process-Level Concurrency ##
@@ -166,25 +158,25 @@ Scheduler
 ## Types of Threads ##
 
 Kernel-Level Threads
-    * Controlled by the kernal, given time by the scheduler
-    * Much like a mini-process
+* Controlled by the kernal, given time by the scheduler
+* Much like a mini-process
 
 User-Level Threads
-    * The kernel doesn't know about these -- they are entirely within a process and don't involve the schduler
-    * Really just _emulation_ of threading
-    * Somtimes called green threads
+* The kernel doesn't know about these -- they are entirely within a process and don't involve the schduler
+* Really just _emulation_ of threading
+* Somtimes called green threads
 
 ### Thread Type Comparison ###
 
 Kernel-Level Threads
-    * Controlled by the kernel, given time by the scheduler
-    * simple to create with built-in libraries in UNIX
-    * Generally considered the better choice 
+* Controlled by the kernel, given time by the scheduler
+* simple to create with built-in libraries in UNIX
+* Generally considered the better choice 
 
 User-Level Threads
-    * Switching between threads is even faster because you're not actually switching data, just places in your code
-    * Entire process may be interrupted by the scheduler
-    * A blocking system call can halt the process, stopping all the threads
+* Switching between threads is even faster because you're not actually switching data, just places in your code
+* Entire process may be interrupted by the scheduler
+* A blocking system call can halt the process, stopping all the threads
 
 
 
@@ -224,10 +216,10 @@ resultInt = pthread_create( &myThreadID,
 
 ## Destroying a Thread ##
 Threads can be killed by:
-    * `pthread_exit()`
-    * The thread returns from `start_routine()`
-    * Externally by another thread calling `pthread_cancel()`
-    * If the process `exit()`s
+* `pthread_exit()`
+* The thread returns from `start_routine()`
+* Externally by another thread calling `pthread_cancel()`
+* If the process `exit()`s
 
 ## Identifying the Executing Thread ##
 
