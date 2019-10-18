@@ -73,7 +73,8 @@ This is not cross-platform. Each processor will have its own unique set of instr
 4. If you are compiling an exe, the linker step tries to match function calls to function code (maybe in different files)
 
 ## GCC - the Standard UNIX Compiler ##
-- Basic compilation ptions
+- Basic compilation options
+
     -g Compile with debugging info for GDB
     -c Compiles only (without linking)
     -S Generates assembly code
@@ -82,3 +83,40 @@ This is not cross-platform. Each processor will have its own unique set of instr
     -Wall Turns on all warnings
     -l <library> Adds support for library <library> when linking (i.e. -lpthread)
 
+## Compiling an executable ##
+- If you have one source (.c) file:
+```
+$ gcc -o dbtest dbtest.c
+```
+- If you have multiple source (.c) files:
+```
+$ gcc -o dbtest dbtest.c dbcreate.c dbopen.c
+```
+
+## Separate Compile and Link
+- If you have multiple source (.c) files::
+    * Compile one at a time and link them at the end
+
+1. First compile all source files separately with the -c flag
+2. Link all the .o files
+
+## Library Archives ##
+- Library archives are collections of object files (.o) gathered into a large file
+
+- to create a library
+    * First create all the object files
+    * Use the `ar` command:
+```
+$ ar -r libdb.a dbcreate.o dbopen.o dbread.o
+```
+
+- To use Library Archives
+- Include the library anywhere you can use an object file:
+```
+$ gcc -o dbtest dbtest.o libdb.a
+```
+To not have to append `./` when you run a program, just add `.` to `$PATH`
+
+
+
+Godbolt.org => live compilation
