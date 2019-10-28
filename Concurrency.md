@@ -143,6 +143,7 @@ Scheduler
 * Comms between threads is vastly simpler than interprocess communication (IPC)
     * share:
         * Code, Heap, Data
+        * You have shared memory, so a 
     * They each have their own stack, but they can access the Stacks of other threads
 
 * The CPU switches between executing threads much faster than between processes because all this memory is shared
@@ -188,7 +189,13 @@ User-Level Threads
 
 Compile with `-lpthread` in gcc
 
-
+* void* are just pointers that point to something and can be casted later
+* You can make function pointers
+How to declare a function pointer:
+```
+    <return_type> (*<pointer_name>) (function_arguments);
+    void* (*function) (void*);
+```
 
 ## Creating a Thread ##
 
@@ -278,7 +285,24 @@ Mutexes Generalized
         * Allow some sort of arbitrary resource count, e.g. number of available buffers
     * Binary semaphore
         * Equal to 1 or 0, indicating locked/unavailable or unlocked/abailable
+    * Semaphores allow N threads access
 
+
+
+Threads
+
+* There are threads in the Kernel, often called aemonss, that are started on startup
+    * The kernel is the central part of an Operating System
+    * Manages hardware (and drivers)
+    * Provides the scheduler
+    * Not interacted with by the user, but interfaced through system calls
+
+* Scheduler
+    * Distributes prioritized and/or fair CPU time
+
+
+* Multithreading is having mutiple threads
+* Hyperthreading is having chached threads for use
 
 
 
