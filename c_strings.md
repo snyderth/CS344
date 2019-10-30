@@ -46,3 +46,17 @@ token = strtok(NULL, " "); <== "my/strings"
 ```
 
 * As `strtok()` finds the delinminating character, it replaces the delimiter with a `NULL` terminator and returns a pointer to the string it was given 
+
+
+## Dynalmically Allocating a String ##
+* To create a string variable dynacially, and thus use it like an array, use `malloc()` and `free()`
+
+
+## Malloc Memory Leaks ##
+* If you don't free dynamically allocated memory, it still takes up stapce
+* If ou have a long-running program, like a server process, this could eventually use up all of your memory
+* Process memory is normally all freed aytomatically when a process is terminated
+    * Generally in UNIX and Windows -- some real-teim operating systems don't!
+
+
+
