@@ -274,3 +274,27 @@ void main(){
 * You can view/edit environment from bash by using `printenv` and `export` commands
 
 * The environment can be edited in C  with `setenv()` and `getenv()`
+
+## `printenv` ##
+* Screen barf, but outputs every environment variable in your shell environment
+
+## Maipulating hte Environment ##
+* bash:
+```
+MYVAR = "Some text string"
+# Make MYVAR available to processes in the shell
+export MYVAR 
+echo $MYVAR
+MYVAR = "New text"
+```
+
+* C:
+```
+setenv("MYVAR", "Some text string", 1);
+//                                  ^means overwrite variable if exists
+printf("%s\n", getenv("MYVAR"));
+```
+
+* HOWEVER the process execution only belongs to that process. The process cannot edit the environment variables of its parent shell
+* `export` allows you to make new variables and can be placed in the config file of your shell to be a "persistent" variable. If you don't export the variable, it will not be available for any other process
+
