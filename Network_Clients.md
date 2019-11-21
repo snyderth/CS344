@@ -48,4 +48,80 @@ if (connect(socketFD, (struct sockaddr*)&serverAddress, sizeof(serverAddress))){
     perror("Hull breach: connect()");exit(1);
 }
 ```
+## Filling the Address Struct: IP Address ##
+```
+struct sockaddr_in serverAddress;
+
+serverAddress.sin_family = AF_INET;
+serverAddress.sin_port = htons(7000); <= Changes endian-ness (LSB first/MSB first) because network is big-endian
+serverAddress.sin_addr.s_addr = inet_addr("192.168.1.1");
+```
+
+## Filling the Address Struct: Domain Name ##
+* Connecting to server:
+```
+struct sockaddr_in serverAddress;
+struct hostent* serverHostInfo;
+
+serverHostInfo = gethostbyname("www.oregonstate.edu"); <= Do a DNS lookup and return address information
+if(serverHostInfo == NULL){
+    fprintf(stderr, "could not resolve server host name\n");
+    exit(1);
+}
+
+serverAddress.sin_family = AF_INET;
+serverAddress.sin_port = htons(80);
+
+memcpy((char*)&serverAddress.sin_addr.s_addr,
+        (char*)... See slides
+```
+## Sending Data ##
+```
+ssize_t send(int sockfd, void *messsage, size_t message_size, int flags);
+
+char msg[1024];
+...
+r = send(socketFD, msg, 1024, 0);
+if (r < 1024){//handle error}
+```
+
+
+## Sending Data ##
+* Send will block until all the data has been sent, the connection goes away, or a signal handler interrupts the `write()` system call
+* Remember that internet connections fail all the time
+    * Client intentionally disconnects (STOP button in a web browser)
+    * Network failure
+    * etc.
+
+* You MUST check if you have sent all the data. If not all was sent, you have to send the number of bytes that have not been sent
+
+## Receiving Data ##
+```
+ssize_t recv(int sockfd, void *buffer, size_t buffer_size, int flags);
+
+
+char buffer[1024];
+memset(buffer, '\0', sizeof(buffer));
+r = recv(socketFD, buffer, sizeof(buffer) -1, 0);
+if( r < sizeof(buffer) -1) {//handle possible error}
+```
+
+
+
+## Receiving Data ##
+* Data may arrice in odd size bundles
+* `recv()` or `read()` will return exactly the amount of data that has already arrived
+* `recv()` and `read()` will block if the connnection is open, but no data is available
+
+
+
+## Receiving Data - Using Control Codes ##
+* Similar to controlling data being sent through pipes, you can watch for the amount of data coming through `recv()` if you know how much there should be
+* See the slides for a receive algorithm
+
+
+
+## Debugging the Contents of Buffers ##
+* Often when writing send and receive funcitons, you will get garbage. Check the buffer via the algorithm shown in slides
+
 
